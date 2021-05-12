@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">	
+  <meta name="language" content="de">
+  <title>Einseitig</title>
+  <meta name="description" content="Testimplementierung eines Onlinepagers">
+  <meta name="author" content="Andreas Fritsch">
+  <link rel="shortcut icon" href="http://www.pixelfans.de/favicon.ico" type="image/x-icon">	
+<style>
+html {
+    height: 100%;
+    width: 100%;
+    overflow-x: hidden;
+    font: 100%/1.45 "Minion Web Pro","Minion Web", Cambria,Georgia, serif;
+    margin: 0;
+    padding: 0;
+    background: #555;
+}
+body {
+    margin: 0;
+    padding: 0;
+}
+a { color: #efb114 }
+body > h1 {
+    width: 100%;
+    font-size: 25px;
+    padding: .5em;
+    margin-top: 0;
+    text-align: center;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,0.7);
+    -moz-box-shadow: 0 1px 1px rgba(0,0,0,0.7);
+    box-shadow: 0 1px 1px rgba(0,0,0,0.7);
+    line-height: 5px;
+    height: 25px;
+}
+body > h1,
+button {
+    background-color: #222;
+    filter: progid:DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr=#444444, endColorstr=black);
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient (GradientType=0, startColorstr=#444444, endColorstr=black)";
+    background-image: -webkit-gradient(linear,0% 0,0% 100%,from(#444),to(black));
+    background-image: -moz-linear-gradient(top,#444 0,black 100%);
+    background-image: -o-linear-gradient(top,#444 0,black 100%);
+}
+body > h1,
+nav ul li a,
+button { text-shadow: 0 -1px 1px #000 }
+nav ul {
+    padding: 0;
+    list-style: none;
+    position: absolute;
+    left: 10px;
+    top: -10px;
+    width: 90%;
+}
+h1,
+nav button {
+    color: #fff;
+    font-weight: bold;
+}
+nav ul:hover,
+nav ul:focus { }
+nav ul li {
+    list-style: none: border-top:none;
+    border-bottom: none;
+    float: left;
+    margin-right: 5%;
+}
+nav ul li a {
+    display: block;
+    text-decoration: none;
+    font-weight: bold;
+    color: #fff;
+    padding: 1em .5em;
+    font-size: 20px;
+}
+section h1,
+nav ul li a:hover,
+nav ul li a.active { color: #efb114 }
+section {
+    background: #fff;
+    border-radius: 0.5em;
+    -webkit-box-shadow: 0 0 5px #222;
+    box-shadow: 0 0 5px rgba(0,0,0,0.8);
+    border: 1px solid #ddd;
+    padding: .5em;
+    margin: 1em .5em;
+}
+section h1,
+section p { text-shadow: 0 1px 1px #ccc }
+section p {
+    color: #222;
+    font: normal 16px Arial, sans-serif;
+}
+/* modern browser on desktop*/
+@media all and (min-width:601px) { 
+    html {
+        /*http: //lea.verou.me/css3patterns/#carbon-fibre*/;
+        background: -webkit-radial-gradient(black 15%,transparent 16%) 0 0, -webkit-radial-gradient(black 15%,transparent 16%) 8px 8px, -webkit-radial-gradient(rgba(255,255,255,.1) 15%,transparent 20%) 0 1px, -webkit-radial-gradient(rgba(255,255,255,.1) 15%,transparent 20%) 8px 9px;
+        background: -moz-radial-gradient(black 15%,transparent 16%) 0 0, -moz-radial-gradient(black 15%,transparent 16%) 8px 8px, -moz-radial-gradient(rgba(255,255,255,.1) 15%,transparent 20%) 0 1px, -moz-radial-gradient(rgba(255,255,255,.1) 15%,transparent 20%) 8px 9px;
+        background: -o-radial-gradient(black 15%,transparent 16%) 0 0, -o-radial-gradient(black 15%,transparent 16%) 8px 8px, -o-radial-gradient(rgba(255,255,255,.1) 15%,transparent 20%) 0 1px, -o-radial-gradient(rgba(255,255,255,.1) 15%,transparent 20%) 8px 9px;
+        background: radial-gradient(black 15%,transparent 16%) 0 0, radial-gradient(black 15%,transparent 16%) 8px 8px, radial-gradient(rgba(255,255,255,.1) 15%,transparent 20%) 0 1px, radial-gradient(rgba(255,255,255,.1) 15%,transparent 20%) 8px 9px;
+        background-color: #282828;
+        background-size: 16px 16px;
+    }
+    body > h1 {
+        box-shadow: 0 2px 10px rgba(0,0,0, .5);
+        color: #efb114;
+    }
+    section {
+        margin: 2em;
+        padding: 3em;
+        -webkit-column-count: 2;
+        -webkit-column-gap: 40px;
+        -moz-column-count: 2;
+        -moz-column-gap: 40px;
+        column-count: 2;
+        column-gap: 40px;
+    }
+    nav ul { left: 20px }
+    section h1 {
+        color: #000;
+        font-size: 150%;
+        border: 2px solid #000;
+        border-left: none;
+        border-right: none;
+        text-align: center;
+    }
+}
+/* modern Desktops */
+@media all and (min-width:1000px) { 
+    section {
+        padding: 2em;
+        -webkit-column-count: 3;
+        -webkit-column-gap: 20px;
+        -moz-column-count: 3;
+        -moz-column-gap: 20px;
+        column-count: 3;
+        column-gap: 20px;
+    }
+}
+/* mobile styles*/
+@media all and (max-device-width: 600px) { 
+    html {
+        border-top-style: dashed;
+        border-width: 0;
+    }
+    /*marker for js mobile detection */
+    nav ul {
+        width: 90%;
+        background: #424542;
+        border: 2px solid #fff;
+        border-radius: .5em;
+        -webkit-box-shadow: 5px 5px 10px #424542;
+        box-shadow: 5px 5px 10px rgba(0,0 0,0.5);
+        left: 5%;
+        top: 40px;
+    }
+    nav ul li {
+        float: none;
+        margin-right: 0;
+    }
+    nav ul li a {
+        font-size: 22px;
+        text-align: center;
+        padding: .5em;
+    }
+    body > h1 {
+        text-align: left;
+        line-height: 25px;
+        text-shadow: 0 0 2px #efb114;
+    }
+    section h1 {
+        margin: -10px 0 -10px;
+        text-align: center;
+    }
+    button {
+        position: absolute;
+        top: 3px;
+        right: 10px;
+        border: 1px solid #111;
+        width: 100px;
+        height: 40px;
+        padding: 3px 0;
+        font-size: 20px;
+        border-radius: 8px;
+        -moz-box-shadow: inset 2px 2px 5px rgba(255,255,255, 0.2);
+        -webkit-box-shadow: inset 2px 2px 5px rgba(255,255,255, 0.2);
+        box-shadow: inset 2px 2px 5px rgba(255,255,255, 0.2);
+    }
+    button:hover,
+    button:focus {
+        background-color: rgba(0,0,0,1);
+        border: 2px solid white;
+        box-shadow: none;
+    }
+}
+</style>
+<script>
+(function () {
+var lastid, nav_a, button, menu, mobile;
+
+//help functions 
+var $ = function (id) {'use strict'; return document.getElementById(id); };
+var $t = function (tag, con) {'use strict'; return (con || document).getElementsByTagName(tag); };
+
+//hide  a couple of elements
+function hide() {
+	var i;
+	for (i = 0; i < arguments.length; i += 1) {
+		$(arguments[i]).style.display = 'none';
+	}//end for
+}// end hide
+
+//show the choosen section
+function show(id) {
+	var e = $(lastid);
+	if (e) {
+		e.style.display = 'none';
+	}
+	e = $(id);
+	if (e) {
+		e.style.display = 'block';
+	}
+	lastid = id;
+}//end show
+
+//http://molily.de/js/event-handling-fortgeschritten.html
+//without fn.call you can't use this in event handler
+function addEvent(obj, type, fn) {
+    if (obj.addEventListener) {
+        obj.addEventListener(type, fn, false);
+    } else if (obj.attachEvent) {
+        obj.attachEvent('on' + type, function () {
+            return fn.call(obj, window.event);
+        });//end else if
+    }//end if
+} //end addEvent
+
+//if mobile  change hide/block 
+function togglemenu() {
+	menu = $t('ul', $t('nav')[0])[0];
+	if (mobile === 'true' && menu.style.display !== 'none') {
+		menu.style.display = 'none';
+	} else {
+		menu.style.display = 'block';
+	} //endif
+} //endtogglemenu
+
+//add event oncklick
+function clf(evt) {
+	var i, e;
+	evt.preventDefault ? evt.preventDefault() : evt.returnValue = false;
+	e = this.href.split('#')[1];
+	show(e);
+	for (i = 0; i < nav_a.length; i += 1) {nav_a.item(i).className = ''; } //end for
+	this.className = 'active';
+	this.blur();
+	togglemenu();
+	document.title = e.toUpperCase() + ' - Einseitig';
+}//end clf
+
+
+// create button, if not exists
+function showButton() {
+	var nav, buttontext;
+	nav =  $t('nav')[0];
+	if (typeof (button) === 'undefined') {
+		button = document.createElement('button');
+		buttontext = document.createTextNode('Men\u00FC');
+		button.appendChild(buttontext);
+		nav.appendChild(button);
+		addEvent(button, 'click', togglemenu);
+		togglemenu();
+	} else {
+		nav.appendChild(button);
+	}
+} //end showButton
+
+// detect media query and show  a button for mobiles
+function checkScreen() {
+	mobile = window.getComputedStyle($t('html')[0], null).getPropertyValue('border-top-style') === 'dashed' ? 'true' : 'false';
+	if (mobile === 'true') {
+		showButton();
+	} else {
+		if (typeof (button) !== 'undefined' && button.parentNode) {
+			button.parentNode.removeChild(button); //remove button from DOM but button exists
+			if (typeof menu !== 'undefined') {menu.style.display = 'block'; }
+		} //endif
+	} //endelse
+} //end checkScreen
+
+
+//start
+function load() {
+	var i;
+	hide('idee', 'js', 'css');
+	nav_a = $t('a', $t('nav')[0]);
+	for (i = 0; i < nav_a.length; i += 1) {addEvent(nav_a.item(i), 'click', clf); } //end for
+	show('idee');
+	nav_a.item(0).className = 'active';
+	checkScreen();
+	document.title = 'IDEE - Einseitig';
+} // end load
+
+//events on load
+if (!document.addEventListener) { //Old IE
+	document.createElement('section');//now old IE know this elements 
+	document.createElement('nav');
+	window.onload = load;
+} else {
+	document.addEventListener("DOMContentLoaded", load, false);
+}
+
+//event listener resize
+addEvent(window, 'resize', checkScreen);
+})();
+
+// Fix iPhone viewport scaling bug on orientation change
+// By @mathias, @cheeaun and @jdalton
+(function (doc) {
+	var addEvent = 'addEventListener',
+		type = 'gesturestart',
+		qsa = 'querySelectorAll',
+		scales = [1, 1],
+		meta = qsa in doc ? doc[qsa]('meta[name=viewport]') : [];
+
+	function fix() {
+		meta.content = 'width=device-width,minimum-scale=' + scales[0] + ',maximum-scale=' + scales[1];
+		doc.removeEventListener(type, fix, true);
+	}
+	if ((meta = meta[meta.length - 1]) && addEvent in doc) {
+		fix();
+		scales = [.25, 1.6];
+		doc[addEvent](type, fix, true);
+	}
+}(document));
+</script>
+</head>
+<body> 
+<h1>EinSeitig</h1>
+<nav>
+<ul>
+<li><a href="#idee" title="Kurzbeschreibung">Idee</a></li>
+<li><a href="#js" title="Codeerkl&#228;rung">Javascript</a></li>
+<li><a href="#css" title="Styling">CSS</a></li>
+</ul>
+</nav>
+<section id="idee">
+<h1>Idee</h1>
+<p>Für eine kleine Visitenkarte im Netz genügt eine Seite, die alle wichtigen Informationen beinhaltet.
+Alle wichtigen Inhalte erschließen sich umgehend, nachdem die Seite geladen ist. Zusätzlichen Wartezeiten gibt es nicht.</p><p>Typischerweise bestanden Dokumente aus der Geburtsstunde des <abbr title="World Wide Web">WWW</abbr> nur aus einer Seite mit Text. Überwiegend waren das wissenschaftliche Texte, die durch (Hyper)Links auf einander verwiesen.</p>
+<p>Da wir nicht mehr in der digitalen Steinzeit leben, muss auch eine reine Informationsseite (in Englisch auch <em>Onepager</em> genannt), nicht wie ein langer Aufsatz aussehen. Durch den Einsatz von Javascript und <abbr title="Cascading Style Seets">CSS</abbr> kann die Seite in gut lesbare und abgrenzbare Abschnitte unterteilt werden. Die Leser sind auch etwas ungeduldiger als 1994.</p><p><em>Eric Meyer</em> zeigte mit seinem <a href="http://meyerweb.com/eric/tools/s5/" title="Zur Seite des Präsentationssystems">S5</a>, dass sich damit auch ganze Präsentationen aufbauen lassen.</p><p>Zusätzlich muss heute noch beachtet werden, dass Besucher, die Seite mit unterschiedlichen Geräten ansehen. Sie ist daher auch für mobile Endgeräte und große Monitore zu optimieren.</p>
+<p>Browser ohne Javascript zeigen immer noch die einfache Seite, der Inhalt bleibt zugänglich. Nutzer neuerer Geräte haben davon einen Nutzen. Die "anderen Seiten" erläutern die verwendeten Techniken.</p>
+</section>
+<section id="js">
+<h1>Javascript</h1>
+<p>Diese Seite habe ich im Quelltext umfangreich kommentiert. Zusätzlich möchte ich einige Aspekte hervorheben.</p><p> Mein Anspruch war es, eben nicht das allgegenwärtige <em>jquery</em> zu verwenden und zusätzlich noch <em>jquery mobile</em>. Beide Bibliotheken vereinfachen das Arbeiten erheblich, sind aber selbst gepackt keine Leichtgewichte mehr.</p><p>Für diesen Onepager ist die Anforderung lediglich die Sichtbarkeit von Elementen zu verändern. Für Mobilbrowser wird noch ein zusätzlicher <code>button</code> erzeugt. Daher steht der Nutzen der o.g. Bibliotheken, insbesondere beim mobilen Zugang in gar keinem Verhältnis zur Ladezeit.</p><p>Der Komfort von Bibliotheken besteht u.a. in einem einfachen Zugriff auf das <abbr title="Document Object Model">DOM</abbr>. Zwei kleine Funktionen dieser Seite erlauben Kurzschreibweisen, um auf <em>id</em>'s mittels <code>$('idee')</code> bzw. <em>Tags</em> mittels <code>$t('a',$t('nav')[0])</code> zuzugreifen.</p><p> Die zweite Variante sieht etwas komplizierter aus, als von <em>jquery</em> gewohnt, gibt aber in dem Beispiel ein <em>array</em> zurück, welches alle <em>a</em>-Elemente im ersten Navigationselement zurück.</p><p>Die meisten Funktionen gehen in allen Webbrowsern. Da alte Internet Explorer die <em>event</em>-Handler anders aufrufen, ist die Hilfsfunktion <em>addEvent</em> nötig. Zusätzlich wird die <em>load</em>-Funktion im IE mit <em>windows.onload</em> aufgerufen, was in diesem Fall gleichzeitig genutzt wird, um die 2 unbekannten Elemente (nav, section) dem IE bekannt zu machen.</p><p>Jede <em>section</em> enthält jetzt abgrenzbare Inhalte und bis auf die gewählte, werden die anderen per Zuweisung von <code>display:none</code> unsichtbar geschaltet. Damit ensteht der Eindruck von individuellen Seiten.</p>
+<p>Eine mobile Ansicht gibt es nur für Browser, die <em>media queries</em> interpretieren. Damit dürfte eigentlich bislang nur der Browser auf Windows Mobile ausgeschlossen sein, der bislang noch auf dem Internet Explorer 7 basiert. Das sollte sich demnächst aber ändern. Die mobile Ansicht benötigt mehr Platz für eine Navigation, damit man diese mit den Fingern gut treffen kann, gleichzeitig steht aber eine kleinere Fläche zur Verfügung.</p>
+<p>Mit <code>window.getComputedStyle</code> wird daher abgefragt, ob ein bestimmtes Stilmerkmal existiert, was ich per <em>media query</em> zugewiesen habe. Damit ist ein perfektes Zusammenspiel zwischen CSS und Javascript möglich. Wird auf diese Weise ein Mobilgerät "enttarnt", gibt es einen extra Button mit dem komfortabel ein Menü zugeschaltet werden kann.</p><p>Ohne Javascript bleibt sowohl auf dem Desktop als auch auf Mobilegeräten jederzeit der gesamte Inhalt zugänglich. Auf moderen Smartphones wäre dies jedoch sehr beschwerlich, da die Navigation diesen teilweise verdeckt. Die Wahrscheinlichkeit halte ich für eher gering.</p>
+</section>
+<section id="css">
+<h1>Cascading Style Sheets</h1>
+<p>Der Anteil der mobilen Endgeräte nimmt ständig zu und wird in der Bedeutung noch weiter zunehmen. Daher war es mir wichtig, zunächst die mobilen Stile zu entwickeln. Die Fingernavigation erfordert Test auf echten Geräten, ansonsten empfehle ich das Android SDK und den Simulator von Opera Mobile. Nachdem ich mit dem Ergebnis einigermaßen zufrieden war, habe ich die mobilen Stile in die <em>media query</em> eingepackt und eine Desktopansicht entwickelt, die auch auf alten Browsern funktioniert.</p><p>Meiner Meinung nach sind <em>conditional comments</em> für die alten <abbr title="Internet Explorer">IE</abbr> nicht mehr nötig. Der "Feinschliff" für moderne Browser erfolgt dann in media queries für große Bildschirme.</p><p> Ich habe der Angabe von <em>max-device-width</em> den Vorzug gegeben, da Firefox mobile und Opera mobile <em>max-width</em> nicht so richtig verdaut haben. Die eher seltsame Angabe dem <code>html</code>-Element eine unterbrochene Rahmenlinie zuzuweisen, ist lediglich zur Erkennung durch das Script gedacht. Diese Regel ist nur wirksam, wenn die maximale Breite des Gerätes unter 600 Pixeln liegt.</p><p>Sehr schön finde ich das CSS Muster. Lea Verou hat <a href="http://lea.verou.me/css3patterns/">eine Seite eingerichtet</a>, wo sie Muster sammelt. Vorsicht, bei einigen Firefoxtests hat dies zu einer erheblichen <abbr title="Central Processing Unit">CPU</abbr>-Belastung geführt. Vielleicht wird daran noch intensiv gearbeitet, es ist ja noch ein experimentelles Feature.</p><p>Mittlerweile kann auch <em>CSS Column</em> gut verwendet werden. Während ich die Desktopstile noch für verbesserbar halte, denke ich, dass das reduzierte mobile Design abgeschlossen ist.</p><p>In diesem Zusammenhang muss ich mich noch mal mehr mit der Wirkung von Schriften auf Smartphones auseinandersetze. Zunächst gebe ich den "eingebauten" Schriften den Vorzug, auch wenn beispielsweise Android nur 4 Schriften mitbringt.</p>
+</section>
+</body>
+</html>
